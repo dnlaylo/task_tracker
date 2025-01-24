@@ -12,6 +12,14 @@ class TaskTracker(tk.Tk):
         style = Style(theme="darkly")
         style.configure("Custon.TEntry", foreground="gray")
 
+        # Input box
+        self.task_input = ttk.Entry(self, font=(
+            "Futura", 16), width=30, style="Custon.TEntry")
+        self.task_input.pack(pady=10)
+
+        # Placeholder for input field
+        self.task_input.insert(0, "Enter a task...")
+
 if __name__ == '__main__':
     app = TaskTracker()
     app.mainloop()
