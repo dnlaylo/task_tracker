@@ -36,7 +36,7 @@ class TaskTracker(tk.Tk):
         ttk.Button(self, text="Delete", style="danger.TButton",
                    command=self.delete_task).pack(side=tk.RIGHT, padx=10, pady=10)
         ttk.Button(self, text="View Progress", style="info.TButton",
-                   command=self.view_stats).pack(side=tk.BOTTOM, pady=10)
+                   command=self.progress).pack(side=tk.BOTTOM, pady=10)
 
     def clear_placeholder(self, event):
         if self.task_input.get() == "Enter a task...":
@@ -64,6 +64,26 @@ class TaskTracker(tk.Tk):
             data.append({"text": text, "color": color})
         with open("tasks.json", "w") as f:
             json.dump(data, f)
+
+    def progress(self):
+        done_count = 0
+        total_count = self.task_list.size()
+        for i in range(total_count):
+            if self.task_list.itemcget(i, "fg") == "green":
+                done_count += 1
+        messagebox.showinfo("Task Progress", f"Total tasks: {total_count}\nCompleted tasks: {done_count}")
+
+    def mark_done(self):
+        task_index = self.task_list.curselection()
+        if task_index:
+            self.task_list.itemconfig(task_index, fg="green")
+            self.save_tasks()
+    
+    def delete_task(self):
+        task_index = self.task_list.curselection()
+        if task_index:
+            self.task_list.delete(task_index)
+            self.save_tasks()
 
 if __name__ == '__main__':
     app = TaskTracker()
