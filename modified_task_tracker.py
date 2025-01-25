@@ -37,6 +37,8 @@ class TaskTracker(tk.Tk):
                    command=self.delete_task).pack(side=tk.RIGHT, padx=10, pady=10)
         ttk.Button(self, text="View Progress", style="info.TButton",
                    command=self.progress).pack(side=tk.BOTTOM, pady=10)
+        
+        self.load_tasks()
 
     def clear_placeholder(self, event):
         if self.task_input.get() == "Enter a task...":
@@ -84,6 +86,16 @@ class TaskTracker(tk.Tk):
         if task_index:
             self.task_list.delete(task_index)
             self.save_tasks()
+
+    def load_tasks(self):
+        try:
+            with open("tasks.json", "r") as f:
+                data = json.load(f)
+                for task in data:
+                    self.task_list.insert(tk.END, task["text"])
+                    self.task_list.itemconfig(tk.END, fg=task["color"])
+        except FileNotFoundError:
+            pass
 
 if __name__ == '__main__':
     app = TaskTracker()
