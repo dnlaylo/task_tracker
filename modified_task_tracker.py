@@ -40,6 +40,22 @@ class TaskTracker(tk.Tk):
             self.task_input.insert(0, "Enter a task...")
             self.task_input.configure(style="Custom.TEntry")
 
+    def add_task(self):
+        task = self.task_input.get()
+        if task != "Enter a task...":
+            self.task_list.insert(tk.END, task)
+            self.task_list.itemconfig(tk.END, fg="orange")
+            self.task_input.delete(0, tk.END)
+            self.save_tasks()
+
+    def save_tasks(self):
+        data = []
+        for i in range(self.task_list.size()):
+            text = self.task_list.get(i)
+            color = self.task_list.itemcget(i, "fg")
+            data.append({"text": text, "color": color})
+        with open("tasks.json", "w") as f:
+            json.dump(data, f)
 
 if __name__ == '__main__':
     app = TaskTracker()
