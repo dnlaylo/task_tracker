@@ -30,6 +30,14 @@ class TaskTracker(tk.Tk):
             "Futura", 16), height=10, selectmode=tk.NONE)
         self.task_list.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
+        # buttons for done, delete, and progress
+        ttk.Button(self, text="Mark done", style="success.TButton",
+                   command=self.mark_done).pack(side=tk.LEFT, padx=10, pady=10)
+        ttk.Button(self, text="Delete", style="danger.TButton",
+                   command=self.delete_task).pack(side=tk.RIGHT, padx=10, pady=10)
+        ttk.Button(self, text="View Progress", style="info.TButton",
+                   command=self.view_stats).pack(side=tk.BOTTOM, pady=10)
+
     def clear_placeholder(self, event):
         if self.task_input.get() == "Enter a task...":
             self.task_input.delete(0, tk.END)
