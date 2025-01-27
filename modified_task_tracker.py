@@ -98,6 +98,15 @@ class TaskTracker(tk.Tk):
         with open("tasks.json", "w") as f:
             json.dump(data, f)
 
+    #def edit_task(self):
+        # get what is clicked
+        # separate task name, category, priority
+        # create a new window for edit
+            # input box
+            # category
+            # priority
+            # save button
+            
     def progress(self):
         done_count = 0
         total_count = self.task_list.size()
