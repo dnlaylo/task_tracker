@@ -8,7 +8,7 @@ class TaskTracker(tk.Tk):
         super().__init__()
 
         self.title("Meliora Task Tracker")
-        self.geometry("400x400")
+        self.geometry("500x500")
         style = Style(theme="darkly")
         style.configure("Custon.TEntry", foreground="gray")
 
@@ -24,7 +24,9 @@ class TaskTracker(tk.Tk):
 
         # Category
         self.category_label = ttk.Label(self, text = "Category:").pack(pady=5) # dropdown label
-        self.category_values = ttk.Combobox(self, values = ["Work", "Personal", "School"]).pack(pady=5) # values
+        self.category_values = ttk.Combobox(self, values = ["Work", "Personal", "School"]) # values
+        self.category_values.set("Work")
+        self.category_values.pack(pady=5)
 
         # Adding tasks button
         ttk.Button(self, text="Add", command=self.add_task).pack(pady=5)
@@ -56,8 +58,11 @@ class TaskTracker(tk.Tk):
 
     def add_task(self):
         task = self.task_input.get()
+        category = self.category_values.get()
+
         if task != "Enter a task...":
-            self.task_list.insert(tk.END, task)
+            all_data = f"{task} | {category}"
+            self.task_list.insert(tk.END, all_data)
             self.task_list.itemconfig(tk.END, fg="orange")
             self.task_input.delete(0, tk.END)
             self.save_tasks()
