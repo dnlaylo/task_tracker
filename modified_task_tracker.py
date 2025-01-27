@@ -149,7 +149,7 @@ class TaskTracker(tk.Tk):
         done_count = 0
         total_count = self.task_list.size()
         for i in range(total_count):
-            if self.task_list.itemcget(i, "fg") == "green":
+            if self.task_list.itemcget(i, "fg") == "gray":
                 done_count += 1
         messagebox.showinfo("Task Progress", f"Total tasks: {total_count}\nCompleted tasks: {done_count}")
 
