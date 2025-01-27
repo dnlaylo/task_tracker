@@ -59,9 +59,9 @@ class TaskTracker(tk.Tk):
     def change_theme(self):
         # to toggle themes
         if self.is_dark: 
-            self.style.theme_use("darkly")
+            self.style.theme_use("flatly")
         else:
-            self.style.theme_use("flatly") 
+            self.style.theme_use("darkly") 
         self.is_dark = not self.is_dark # change to either true/false
 
     def clear_placeholder(self, event):
