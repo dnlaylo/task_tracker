@@ -22,6 +22,10 @@ class TaskTracker(tk.Tk):
         self.task_input.bind("<FocusIn>", self.clear_placeholder) #clear
         self.task_input.bind("<FocusOut>", self.restore_placeholder) #out of focus
 
+        # Category
+            # dropdown label
+            # values
+
         # Adding tasks button
         ttk.Button(self, text="Add", command=self.add_task).pack(pady=5)
 
