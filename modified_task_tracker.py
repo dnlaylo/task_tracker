@@ -23,8 +23,8 @@ class TaskTracker(tk.Tk):
         self.task_input.bind("<FocusOut>", self.restore_placeholder) #out of focus
 
         # Category
-            # dropdown label
-            # values
+        self.category_label = ttk.Label(self, text = "Category:").pack(pady=5) # dropdown label
+        self.category_values = ttk.Combobox(self, values = ["Work", "Personal", "School"]).pack(pady=5) # values
 
         # Adding tasks button
         ttk.Button(self, text="Add", command=self.add_task).pack(pady=5)
