@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, font
 from ttkbootstrap import Style
 import json
 
@@ -85,7 +85,12 @@ class TaskTracker(tk.Tk):
         if task != "Enter a task...":
             all_data = f"{task} | {category} | {priority}"
             self.task_list.insert(tk.END, all_data)
-            self.task_list.itemconfig(tk.END, fg="orange")
+
+            if priority == "Very Important!":
+                self.task_list.itemconfig(tk.END, fg="red")
+            else:
+                self.task_list.itemconfig(tk.END, fg="green")
+
             self.task_input.delete(0, tk.END)
             self.save_tasks()
 
@@ -150,8 +155,13 @@ class TaskTracker(tk.Tk):
 
     def mark_done(self):
         task_index = self.task_list.curselection()
+        current = self.task_list.get(task_index)
+
         if task_index:
-            self.task_list.itemconfig(task_index, fg="green")
+            task_done = f"{current} | DONE"
+            self.task_list.delete(task_index)
+            self.task_list.insert(task_index, task_done)
+            self.task_list.itemconfig(task_index, fg="gray")
             self.save_tasks()
     
     def delete_task(self):
