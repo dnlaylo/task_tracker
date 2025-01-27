@@ -109,22 +109,36 @@ class TaskTracker(tk.Tk):
             edit_window.title("Edit Task")
 
             # input box
-            edit_name = ttk.Entry(edit_window, font=(
+            self.edit_name = ttk.Entry(edit_window, font=(
                 "Futura", 12), width=30, style="Custon.TEntry")
-            edit_name.insert(0, separate_data[0]) # input current chosen task
-            edit_name.pack(padx=10, pady=10)
+            self.edit_name.insert(0, separate_data[0]) # input current chosen task
+            self.edit_name.pack(padx=10, pady=10)
 
             # category
-            edit_category = ttk.Combobox(edit_window, values = ["Work", "Personal", "School"])
-            edit_category.set(separate_data[1])
-            edit_category.pack(pady=5)
+            self.edit_category = ttk.Combobox(edit_window, values = ["Work", "Personal", "School"])
+            self.edit_category.set(separate_data[1])
+            self.edit_category.pack(pady=5)
 
             # priority
-            edit_category = ttk.Combobox(edit_window, values = ["Very Important!", "Not so Important"])
-            edit_category.set(separate_data[2])
-            edit_category.pack(pady=5)
+            self.edit_priority = ttk.Combobox(edit_window, values = ["Very Important!", "Not so Important"])
+            self.edit_priority.set(separate_data[2])
+            self.edit_priority.pack(pady=5)
 
             # save button
+            ttk.Button(edit_window, text = "Save", command = lambda: self.save_changes(task_index, edit_window)).pack(pady=5) #lambda - inner function so that i can use the variables for an outside function
+
+    def save_changes(self, task_index, edit_window):
+        new_name = self.edit_name.get()
+        new_category = self.edit_category.get()
+        new_priority = self.edit_priority.get()
+
+        new_data = f"{new_name} | {new_category} | {new_priority}"
+        self.task_list.delete(task_index)
+        self.task_list.insert(task_index, new_data)
+        self.task_list.itemconfig(task_index, fg="orange")
+
+        self.save_tasks() # called save_tasks function
+        edit_window.destroy() # destroy window once saved
             
     def progress(self):
         done_count = 0
