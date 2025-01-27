@@ -9,8 +9,12 @@ class TaskTracker(tk.Tk):
 
         self.title("Meliora Task Tracker")
         self.geometry("550x550")
-        style = Style(theme="darkly")
-        style.configure("Custon.TEntry", foreground="gray")
+        self.style = Style(theme = "darkly")
+        self.style.configure("Custon.TEntry", foreground="gray")
+
+        # Light mode / Dark mode
+        self.is_dark = True
+        ttk.Button(self, text = "Dark mode", command = self.change_theme).pack(pady=5)
 
         # Input box
         self.task_input = ttk.Entry(self, font=(
@@ -51,6 +55,14 @@ class TaskTracker(tk.Tk):
                    command=self.progress).pack(side=tk.BOTTOM, pady=10)
         
         self.load_tasks()
+
+    def change_theme(self):
+        # to toggle themes
+        if self.is_dark: 
+            self.style.theme_use("darkly")
+        else:
+            self.style.theme_use("flatly") 
+        self.is_dark = not self.is_dark # change to either true/false
 
     def clear_placeholder(self, event):
         if self.task_input.get() == "Enter a task...":
