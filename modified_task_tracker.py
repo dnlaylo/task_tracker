@@ -8,13 +8,13 @@ class TaskTracker(tk.Tk):
         super().__init__()
 
         self.title("Meliora Task Tracker")
-        self.geometry("550x550")
+        self.geometry("600x600")
         self.style = Style(theme = "darkly")
         self.style.configure("Custon.TEntry", foreground="gray")
 
         # Light mode / Dark mode
         self.is_dark = True
-        ttk.Button(self, text = "Dark mode", command = self.change_theme).pack(pady=5)
+        ttk.Button(self, text = "Dark/Light", command = self.change_theme).pack(pady=5)
 
         # Input box
         self.task_input = ttk.Entry(self, font=(
@@ -46,19 +46,22 @@ class TaskTracker(tk.Tk):
             "Futura", 16), height=10, selectmode=tk.NONE)
         self.task_list.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
+        # Edit Button
+        ttk.Button(self, text="Edit", style="info.TButton", command=self.edit_task).pack(side=tk.LEFT, padx=10, pady=10)
+
         # buttons for done, delete, and progress
         ttk.Button(self, text="Mark done", style="success.TButton",
                    command=self.mark_done).pack(side=tk.LEFT, padx=10, pady=10)
         ttk.Button(self, text="Delete", style="danger.TButton",
-                   command=self.delete_task).pack(side=tk.RIGHT, padx=10, pady=10)
+                   command=self.delete_task).pack(side=tk.LEFT, padx=10, pady=10)
         ttk.Button(self, text="View Progress", style="info.TButton",
-                   command=self.progress).pack(side=tk.BOTTOM, pady=10)
+                   command=self.progress).pack(side=tk.RIGHT, padx=10, pady=10)
         
         self.load_tasks()
 
     def change_theme(self):
         # to toggle themes
-        if self.is_dark: 
+        if self.is_dark:  
             self.style.theme_use("flatly")
         else:
             self.style.theme_use("darkly") 
