@@ -98,13 +98,32 @@ class TaskTracker(tk.Tk):
         with open("tasks.json", "w") as f:
             json.dump(data, f)
 
-    #def edit_task(self):
-        # get what is clicked
-        # separate task name, category, priority
-        # create a new window for edit
+    def edit_task(self):
+        task_index = self.task_list.curselection() # get what is clicked
+        if task_index: 
+            chosen_task = self.task_list.get(task_index)
+            separate_data = chosen_task.split(" | ") # separate task name, category, priority
+            
+            # create a new window for edit
+            edit_window = tk.Toplevel(self)
+            edit_window.title("Edit Task")
+
             # input box
+            edit_name = ttk.Entry(edit_window, font=(
+                "Futura", 12), width=30, style="Custon.TEntry")
+            edit_name.insert(0, separate_data[0]) # input current chosen task
+            edit_name.pack(padx=10, pady=10)
+
             # category
+            edit_category = ttk.Combobox(edit_window, values = ["Work", "Personal", "School"])
+            edit_category.set(separate_data[1])
+            edit_category.pack(pady=5)
+
             # priority
+            edit_category = ttk.Combobox(edit_window, values = ["Very Important!", "Not so Important"])
+            edit_category.set(separate_data[2])
+            edit_category.pack(pady=5)
+
             # save button
             
     def progress(self):
