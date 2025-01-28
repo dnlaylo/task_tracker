@@ -46,6 +46,11 @@ class TaskTracker(tk.Tk):
         # Adding tasks button
         ttk.Button(self, text="Add", command=self.add_task).pack(pady=5)
 
+        # Own tabs for each category
+            # use ttk.Notebook and ttk.Frame
+            # store work school personal in own frame
+            # own list per category
+
         # Tasks display
         self.task_list = tk.Listbox(self, font=(
             "Futura", 16), height=10, selectmode=tk.NONE)
