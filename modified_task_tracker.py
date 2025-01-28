@@ -207,14 +207,25 @@ class TaskTracker(tk.Tk):
         current_tab = self.notebook.tab(self.notebook.select(), "text") # what is current tab
         task_index = self.task_lists[current_tab].curselection()
         current = self.task_lists[current_tab].get(task_index)
+        
+        if "Very Important!" in current:
+            priority = "red"
+        else:
+            priority = "green"
 
-        if task_index:
+        if self.task_lists[current_tab].itemcget(task_index, "fg") == "gray":
+            undo = current.replace(" | DONE", "")
+            self.task_lists[current_tab].delete(task_index)
+            self.task_lists[current_tab].insert(task_index, undo)
+            self.task_lists[current_tab].itemconfig(task_index, fg=priority)
+        else: 
             task_done = f"{current} | DONE"
             self.task_lists[current_tab].delete(task_index)
             self.task_lists[current_tab].insert(task_index, task_done)
             self.task_lists[current_tab].itemconfig(task_index, fg="gray")
-            self.progress_bar_ud()
-            self.save_tasks()
+
+        self.progress_bar_ud()
+        self.save_tasks()
     
     def delete_task(self):
         current_tab = self.notebook.tab(self.notebook.select(), "text") # what is current tab
