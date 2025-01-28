@@ -49,10 +49,14 @@ class TaskTracker(tk.Tk):
         # Own tabs for each category
         self.notebook = ttk.Notebook(self) # use ttk.Notebook
         self.notebook.pack(fill = tk.BOTH, expand = True, padx = 10, pady = 10)
-        
-            # ttk.Frame
-            # store work school personal in own frame
-            # own list per category
+
+        # ttk.Frame
+        # store work school personal in own frame
+        work_tab = ttk.Frame(self.notebook)
+        pers_tab = ttk.Frame(self.notebook)
+        school_tab = ttk.Frame(self.notebook)
+
+        # own list per category
 
         # Tasks display
         self.task_list = tk.Listbox(self, font=(
