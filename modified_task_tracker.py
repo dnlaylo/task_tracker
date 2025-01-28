@@ -8,7 +8,7 @@ class TaskTracker(tk.Tk):
         super().__init__()
 
         self.title("Meliora Task Tracker")
-        self.geometry("650x650")
+        self.geometry("700x700")
         self.style = Style(theme = "darkly")
         self.style.configure("Custon.TEntry", foreground="gray")
 
@@ -50,11 +50,13 @@ class TaskTracker(tk.Tk):
         self.notebook = ttk.Notebook(self) # use ttk.Notebook
         self.notebook.pack(fill = tk.BOTH, expand = True, padx = 10, pady = 10)
 
-        # ttk.Frame
         # store work school personal in own frame
-        work_tab = ttk.Frame(self.notebook)
-        pers_tab = ttk.Frame(self.notebook)
-        school_tab = ttk.Frame(self.notebook)
+        self.tabs = {} # array to create own tab
+
+        for category in ["Work", "Personal", "School"]: # loop for each category to be stored in a tab
+            tab = ttk.Frame(self.notebook) # ttk.Frame
+            self.notebook.add(tab, text = category) # append a category to notebook
+            self.tabs[category] = tab # creates a ttk.Frame for all categories
 
         # own list per category
 
