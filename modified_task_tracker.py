@@ -58,7 +58,10 @@ class TaskTracker(tk.Tk):
             self.notebook.add(tab, text = category) # append a category to notebook
             self.tabs[category] = tab # creates a ttk.Frame for all categories
 
-        # own list per category
+            # own list per category
+            # array to create own list
+            # tk.Listbox variable assigned to a specific tab
+            # call array then assign to listbox
 
         # Tasks display
         self.task_list = tk.Listbox(self, font=(
