@@ -188,6 +188,21 @@ class TaskTracker(tk.Tk):
                     done_count += 1
         messagebox.showinfo("Task Progress", f"Total tasks: {total_count}\nCompleted tasks: {done_count}")
 
+    def progress_bar_ud(self):
+        # got from progress function, just to count
+        done_count = 0
+        total_count = 0
+        for task_list in self.task_lists.values():
+            total_count += task_list.size()
+            for i in range(task_list.size()):
+                if task_list.itemcget(i, "fg") == "gray":
+                    done_count += 1
+
+        if total_count > 0:
+            self.progress_bar["value"] = (done_count / total_count) * 100
+        else:
+            self.progress_bar["value"] = 0
+
     def mark_done(self):
         current_tab = self.notebook.tab(self.notebook.select(), "text") # what is current tab
         task_index = self.task_lists[current_tab].curselection()
@@ -198,6 +213,7 @@ class TaskTracker(tk.Tk):
             self.task_lists[current_tab].delete(task_index)
             self.task_lists[current_tab].insert(task_index, task_done)
             self.task_lists[current_tab].itemconfig(task_index, fg="gray")
+            self.progress_bar_ud()
             self.save_tasks()
     
     def delete_task(self):
