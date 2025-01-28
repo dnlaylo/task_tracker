@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from ttkbootstrap import Style
+from ttkbootstrap import Style, Progressbar
 import json
 
 class TaskTracker(tk.Tk):
@@ -75,6 +75,10 @@ class TaskTracker(tk.Tk):
                   command=self.delete_task).pack(side=tk.LEFT, padx=10, pady=10)
         ttk.Button(self, text="View Progress", style="info.TButton",
                   command=self.progress).pack(side=tk.RIGHT, padx=10, pady=10)
+        
+        # Progress bar
+        self.progress_bar = ttk.Progressbar(self, orient = "horizontal", mode = "determinate", length = 400)
+        self.progress_bar.pack(side = tk.BOTTOM, padx = 10, pady = 10)
         
         self.load_tasks()
 
