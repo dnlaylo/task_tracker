@@ -126,10 +126,10 @@ class TaskTracker(tk.Tk):
             json.dump(data, f)
 
     def edit_task(self):
-        # what is current tab
-        task_index = self.task_list.curselection() # get what is clicked
+        current_tab = self.notebook.tab(self.notebook.select(), "text") # what is current tab | selects tab and gets its text
+        task_index = self.task_lists[current_tab].curselection() # get what is clicked
         if task_index: 
-            chosen_task = self.task_list.get(task_index)
+            chosen_task = self.task_lists[current_tab].get(task_index)
             separate_data = chosen_task.split(" | ") # separate task name, category, priority
             
             # create a new window for edit
@@ -158,22 +158,22 @@ class TaskTracker(tk.Tk):
             self.edit_deadline.pack(pady=5)
     
             # save button
-            ttk.Button(edit_window, text = "Save", command = lambda: self.save_changes(task_index, edit_window)).pack(pady=5) #lambda - inner function so that i can use the variables for an outside function
+            ttk.Button(edit_window, text = "Save", command = lambda: self.save_changes(task_index, edit_window, current_tab)).pack(pady=5) #lambda - inner function so that i can use the variables for an outside function
 
-    def save_changes(self, task_index, edit_window):
+    def save_changes(self, task_index, edit_window, current_tab):
         new_name = self.edit_name.get()
         new_category = self.edit_category.get()
         new_priority = self.edit_priority.get()
         new_deadline = self.edit_deadline.get()
     
         new_data = f"{new_name} | {new_category} | {new_priority} | {new_deadline}"
-        self.task_list.delete(task_index)
-        self.task_list.insert(task_index, new_data)
+        self.task_lists[current_tab].delete(task_index)
+        self.task_lists[current_tab].insert(task_index, new_data)
     
         if new_priority == "Very Important!":
-            self.task_list.itemconfig(task_index, fg="red")
+            self.task_lists[current_tab].itemconfig(task_index, fg="red")
         else:
-            self.task_list.itemconfig(task_index, fg="green")
+            self.task_lists[current_tab].itemconfig(task_index, fg="green")
     
         self.save_tasks() # called save_tasks function
         edit_window.destroy() # destroy window once saved
