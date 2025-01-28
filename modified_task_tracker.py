@@ -152,7 +152,11 @@ class TaskTracker(tk.Tk):
         new_data = f"{new_name} | {new_category} | {new_priority} | {new_deadline}"
         self.task_list.delete(task_index)
         self.task_list.insert(task_index, new_data)
-        self.task_list.itemconfig(task_index, fg="orange")
+
+        if new_priority == "Very Important!":
+            self.task_list.itemconfig(task_index, fg="red")
+        else:
+            self.task_list.itemconfig(task_index, fg="green")
 
         self.save_tasks() # called save_tasks function
         edit_window.destroy() # destroy window once saved
