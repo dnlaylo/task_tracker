@@ -181,10 +181,13 @@ class TaskTracker(tk.Tk):
     def progress(self):
         # get each tabs' count
         done_count = 0
-        total_count = self.task_list.size()
-        for i in range(total_count):
-            if self.task_list.itemcget(i, "fg") == "gray":
-                done_count += 1
+        total_count = 0 # zero default
+        # loop through all tabs then add
+        for task_list in self.task_lists.values():
+            total_count += task_list.size()
+            for i in range(task_list.size()): # changed parameter to current task list size
+                if task_list.itemcget(i, "fg") == "gray":
+                    done_count += 1
         messagebox.showinfo("Task Progress", f"Total tasks: {total_count}\nCompleted tasks: {done_count}")
 
     def mark_done(self):
