@@ -8,7 +8,7 @@ class TaskTracker(tk.Tk):
         super().__init__()
 
         self.title("Meliora Task Tracker")
-        self.geometry("600x600")
+        self.geometry("650x650")
         self.style = Style(theme = "darkly")
         self.style.configure("Custon.TEntry", foreground="gray")
 
@@ -40,7 +40,8 @@ class TaskTracker(tk.Tk):
 
         # Deadline
         self.deadline_label = ttk.Label(self, text = "Deadline (MM-DD-YYYY):").pack(pady=5) # deadline label
-        self.deadline_input = ttk.Entry(self, font = "Futura").pack(pady=5)
+        self.deadline_input = ttk.Entry(self, font = "Futura")
+        self.deadline_input.pack(pady=5)
 
         # Adding tasks button
         ttk.Button(self, text="Add", command=self.add_task).pack(pady=5)
@@ -85,9 +86,10 @@ class TaskTracker(tk.Tk):
         task = self.task_input.get()
         category = self.category_values.get()
         priority = self.priority_values.get()
+        deadline = self.deadline_input.get()
 
         if task != "Enter a task...":
-            all_data = f"{task} | {category} | {priority}"
+            all_data = f"{task} | {category} | {priority} | {deadline}"
             self.task_list.insert(tk.END, all_data)
 
             if priority == "Very Important!":
@@ -133,6 +135,11 @@ class TaskTracker(tk.Tk):
             self.edit_priority.set(separate_data[2])
             self.edit_priority.pack(pady=5)
 
+            # deadline
+            self.edit_deadline = ttk.Entry(edit_window, font = "Futura")
+            self.edit_deadline.insert(0, separate_data[3])
+            self.edit_deadline.pack(pady=5)
+
             # save button
             ttk.Button(edit_window, text = "Save", command = lambda: self.save_changes(task_index, edit_window)).pack(pady=5) #lambda - inner function so that i can use the variables for an outside function
 
@@ -140,8 +147,9 @@ class TaskTracker(tk.Tk):
         new_name = self.edit_name.get()
         new_category = self.edit_category.get()
         new_priority = self.edit_priority.get()
+        new_deadline = self.edit_deadline.get()
 
-        new_data = f"{new_name} | {new_category} | {new_priority}"
+        new_data = f"{new_name} | {new_category} | {new_priority} | {new_deadline}"
         self.task_list.delete(task_index)
         self.task_list.insert(task_index, new_data)
         self.task_list.itemconfig(task_index, fg="orange")
