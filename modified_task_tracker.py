@@ -103,7 +103,7 @@ class TaskTracker(tk.Tk):
         deadline = self.deadline_input.get()
 
         if task != "Enter a task...":
-            all_data = f"{task} | {category} | {priority} | {deadline}"
+            all_data = f"{task} | {priority} | {deadline}"
             self.task_lists[category].insert(tk.END, all_data)
 
             if priority == "Very Important!":
@@ -142,11 +142,6 @@ class TaskTracker(tk.Tk):
             self.edit_name.insert(0, separate_data[0]) # input current chosen task
             self.edit_name.pack(padx=10, pady=10)
     
-            # category
-            self.edit_category = ttk.Combobox(edit_window, values = ["Work", "Personal", "School"])
-            self.edit_category.set(separate_data[1])
-            self.edit_category.pack(pady=5)
-    
             # priority
             self.edit_priority = ttk.Combobox(edit_window, values = ["Very Important!", "Not so Important"])
             self.edit_priority.set(separate_data[2])
@@ -162,11 +157,10 @@ class TaskTracker(tk.Tk):
 
     def save_changes(self, task_index, edit_window, current_tab):
         new_name = self.edit_name.get()
-        new_category = self.edit_category.get()
         new_priority = self.edit_priority.get()
         new_deadline = self.edit_deadline.get()
     
-        new_data = f"{new_name} | {new_category} | {new_priority} | {new_deadline}"
+        new_data = f"{new_name} | {new_priority} | {new_deadline}"
         self.task_lists[current_tab].delete(task_index)
         self.task_lists[current_tab].insert(task_index, new_data)
     
