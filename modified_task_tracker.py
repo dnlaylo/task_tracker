@@ -126,6 +126,7 @@ class TaskTracker(tk.Tk):
             json.dump(data, f)
 
     def edit_task(self):
+        # what is current tab
         task_index = self.task_list.curselection() # get what is clicked
         if task_index: 
             chosen_task = self.task_list.get(task_index)
@@ -178,6 +179,7 @@ class TaskTracker(tk.Tk):
         edit_window.destroy() # destroy window once saved
             
     def progress(self):
+        # get each tabs' count
         done_count = 0
         total_count = self.task_list.size()
         for i in range(total_count):
@@ -186,6 +188,7 @@ class TaskTracker(tk.Tk):
         messagebox.showinfo("Task Progress", f"Total tasks: {total_count}\nCompleted tasks: {done_count}")
 
     def mark_done(self):
+        # what is current tab
         task_index = self.task_list.curselection()
         current = self.task_list.get(task_index)
 
@@ -197,6 +200,7 @@ class TaskTracker(tk.Tk):
             self.save_tasks()
     
     def delete_task(self):
+        # what is current tab
         task_index = self.task_list.curselection()
         if task_index:
             self.task_list.delete(task_index)
