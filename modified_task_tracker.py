@@ -188,22 +188,22 @@ class TaskTracker(tk.Tk):
         messagebox.showinfo("Task Progress", f"Total tasks: {total_count}\nCompleted tasks: {done_count}")
 
     def mark_done(self):
-        # what is current tab
-        task_index = self.task_list.curselection()
-        current = self.task_list.get(task_index)
+        current_tab = self.notebook.tab(self.notebook.select(), "text") # what is current tab
+        task_index = self.task_lists[current_tab].curselection()
+        current = self.task_lists[current_tab].get(task_index)
 
         if task_index:
             task_done = f"{current} | DONE"
-            self.task_list.delete(task_index)
-            self.task_list.insert(task_index, task_done)
-            self.task_list.itemconfig(task_index, fg="gray")
+            self.task_lists[current_tab].delete(task_index)
+            self.task_lists[current_tab].insert(task_index, task_done)
+            self.task_lists[current_tab].itemconfig(task_index, fg="gray")
             self.save_tasks()
     
     def delete_task(self):
-        # what is current tab
-        task_index = self.task_list.curselection()
+        current_tab = self.notebook.tab(self.notebook.select(), "text") # what is current tab
+        task_index = self.task_lists[current_tab].curselection()
         if task_index:
-            self.task_list.delete(task_index)
+            self.task_lists[current_tab].delete(task_index)
             self.save_tasks()
 
     def load_tasks(self):
