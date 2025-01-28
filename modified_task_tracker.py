@@ -144,12 +144,12 @@ class TaskTracker(tk.Tk):
     
             # priority
             self.edit_priority = ttk.Combobox(edit_window, values = ["Very Important!", "Not so Important"])
-            self.edit_priority.set(separate_data[2])
+            self.edit_priority.set(separate_data[1])
             self.edit_priority.pack(pady=5)
     
             # deadline
             self.edit_deadline = ttk.Entry(edit_window, font = "Futura")
-            self.edit_deadline.insert(0, separate_data[3])
+            self.edit_deadline.insert(0, separate_data[2])
             self.edit_deadline.pack(pady=5)
     
             # save button
