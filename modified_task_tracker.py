@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox, font
+from tkinter import ttk, messagebox
 from ttkbootstrap import Style
 import json
 
@@ -37,6 +37,10 @@ class TaskTracker(tk.Tk):
         self.priority_values = ttk.Combobox(self, values = ["Very Important!", "Not so Important"]) # values
         self.priority_values.set("Very Important!")
         self.priority_values.pack(pady=5)
+
+        # Deadline
+        self.deadline_label = ttk.Label(self, text = "Deadline (MM-DD-YYYY):").pack(pady=5) # deadline label
+        self.deadline_input = ttk.Entry(self, font = "Futura").pack(pady=5)
 
         # Adding tasks button
         ttk.Button(self, text="Add", command=self.add_task).pack(pady=5)
