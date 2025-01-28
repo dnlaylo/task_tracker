@@ -60,7 +60,7 @@ class TaskTracker(tk.Tk):
             self.tabs[category] = tab # creates a ttk.Frame for all categories
 
             # own list per category
-            task_list = tk.Listbox(self, font=(
+            task_list = tk.Listbox(tab, font=(
                 "Futura", 16), height=10, selectmode=tk.NONE) # tk.Listbox variable assigned to a specific tab
             task_list.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
             self.task_lists[category] = task_list # call array then assign to listbox
